@@ -1,162 +1,399 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Clicker Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Clicker</title>
 
 <style>
-	body {
-		margin: 0;
-		height: 100vh;
-		background: linear-gradient(135deg, #1e1e1e, #0a0a0a);
-		font-family: Arial, sans-serif;
-		color: white;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family:Arial,sans-serif;
+}
 
-	#game {
-		background: #151515;
-		padding: 25px;
-		border-radius: 15px;
-		width: 340px;
-		box-shadow: 0 0 30px rgba(0,0,0,0.6);
-		text-align: center;
-	}
+body{
+	height:100vh;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	background:
+	radial-gradient(circle at top,#242424,#0d0d0d 70%);
+	color:white;
+	overflow:hidden;
+}
 
-	h1 {
-		margin-top: 0;
-	}
+#game{
+	width:380px;
+	background:rgba(20,20,20,0.95);
+	border:2px solid rgba(255,255,255,0.05);
+	border-radius:20px;
+	padding:25px;
+	box-shadow:
+	0 0 25px rgba(0,0,0,0.6),
+	0 0 60px rgba(0,255,150,0.08);
+	text-align:center;
+	backdrop-filter:blur(10px);
+}
 
-	#points {
-		font-size: 28px;
-		color: #00ff99;
-	}
+h1{
+	font-size:32px;
+	margin-bottom:15px;
+	color:#00ff99;
+	text-shadow:0 0 12px rgba(0,255,153,0.5);
+}
 
-	#clickBtn {
-		margin: 20px 0;
-		font-size: 22px;
-		padding: 18px;
-		width: 100%;
-		border: none;
-		border-radius: 12px;
-		cursor: pointer;
-		background: #00ff99;
-		color: black;
-		transition: transform 0.1s, box-shadow 0.1s;
-	}
+#points{
+	font-size:42px;
+	font-weight:bold;
+	margin-top:5px;
+	color:#ffffff;
+}
 
-	#clickBtn:active {
-		transform: scale(0.95);
-		box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
-	}
+.stats{
+	display:flex;
+	justify-content:space-between;
+	margin-top:18px;
+	background:#111;
+	padding:12px;
+	border-radius:12px;
+	font-size:14px;
+}
 
-	.shop {
-		margin-top: 20px;
-	}
+.stat{
+	width:50%;
+}
 
-	.upgrade {
-		background: #202020;
-		border-radius: 10px;
-		padding: 12px;
-		margin-bottom: 10px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
+.label{
+	color:#888;
+	font-size:12px;
+}
 
-	.upgrade-info {
-		text-align: left;
-	}
+.value{
+	font-size:18px;
+	margin-top:4px;
+	color:#00ff99;
+}
 
-	.upgrade-info span {
-		font-size: 12px;
-		color: #aaa;
-	}
+#clickBtn{
+	width:100%;
+	margin-top:22px;
+	padding:20px;
+	font-size:24px;
+	font-weight:bold;
+	border:none;
+	border-radius:16px;
+	cursor:pointer;
+	background:linear-gradient(135deg,#00ff99,#00c3ff);
+	color:black;
+	transition:0.12s;
+	box-shadow:0 0 20px rgba(0,255,153,0.25);
+}
 
-	.upgrade button {
-		background: #00bfff;
-		border: none;
-		border-radius: 8px;
-		padding: 8px 12px;
-		cursor: pointer;
-		color: black;
-		font-weight: bold;
-	}
+#clickBtn:hover{
+	transform:translateY(-2px);
+	box-shadow:0 0 30px rgba(0,255,153,0.45);
+}
 
-	.upgrade button:disabled {
-		background: #444;
-		color: #777;
-		cursor: not-allowed;
+#clickBtn:active{
+	transform:scale(0.95);
+}
+
+.shop{
+	margin-top:24px;
+	text-align:left;
+}
+
+.shop h2{
+	font-size:20px;
+	margin-bottom:12px;
+	color:#fff;
+}
+
+.upgrade{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	background:#151515;
+	border:1px solid rgba(255,255,255,0.05);
+	padding:14px;
+	border-radius:14px;
+	margin-bottom:12px;
+	transition:0.15s;
+}
+
+.upgrade:hover{
+	transform:translateY(-2px);
+	background:#1c1c1c;
+}
+
+.upgrade-info strong{
+	font-size:16px;
+}
+
+.upgrade-info p{
+	font-size:12px;
+	color:#999;
+	margin-top:4px;
+}
+
+.upgrade button{
+	border:none;
+	padding:10px 16px;
+	border-radius:10px;
+	font-weight:bold;
+	cursor:pointer;
+	background:#00c3ff;
+	color:black;
+	transition:0.12s;
+	min-width:80px;
+}
+
+.upgrade button:hover{
+	transform:scale(1.05);
+}
+
+.upgrade button:disabled{
+	background:#333;
+	color:#777;
+	cursor:not-allowed;
+	transform:none;
+}
+
+#prestigeBtn{
+	width:100%;
+	margin-top:10px;
+	padding:14px;
+	border:none;
+	border-radius:14px;
+	font-size:18px;
+	font-weight:bold;
+	cursor:pointer;
+	background:linear-gradient(135deg,#ffcc00,#ff6600);
+	color:black;
+	transition:0.15s;
+}
+
+#prestigeBtn:hover{
+	transform:translateY(-2px);
+}
+
+.floating{
+	position:absolute;
+	font-weight:bold;
+	color:#00ff99;
+	pointer-events:none;
+	animation:floatUp 1s linear forwards;
+	text-shadow:0 0 10px rgba(0,255,153,0.7);
+}
+
+@keyframes floatUp{
+	0%{
+		opacity:1;
+		transform:translateY(0) scale(1);
 	}
+	100%{
+		opacity:0;
+		transform:translateY(-70px) scale(1.5);
+	}
+}
 </style>
 </head>
 <body>
 
 <div id="game">
-	<h1>🖱️ Clicker Game</h1>
-	<p>Pontos</p>
+
+	<h1>Ultimate Clicker</h1>
+
 	<div id="points">0</div>
 
-	<button id="clickBtn" onclick="clickButton()">CLICAR</button>
-
-	<div class="shop">
-		<h3>🛒 Upgrades</h3>
-
-		<div class="upgrade">
-			<div class="upgrade-info">
-				<strong>Força do Clique</strong><br>
-				<span>+1 por clique</span>
-			</div>
-			<button onclick="buyClick()">10</button>
+	<div class="stats">
+		<div class="stat">
+			<div class="label">Click Power</div>
+			<div class="value" id="clickPowerText">1</div>
 		</div>
 
-		<div class="upgrade">
-			<div class="upgrade-info">
-				<strong>Auto Click</strong><br>
-				<span>+1 ponto/s</span>
-			</div>
-			<button onclick="buyAuto()">25</button>
+		<div class="stat">
+			<div class="label">Auto / Sec</div>
+			<div class="value" id="autoPowerText">0</div>
 		</div>
 	</div>
+
+	<button id="clickBtn">CLICK</button>
+
+	<div class="shop">
+
+		<h2>Shop</h2>
+
+		<div class="upgrade">
+			<div class="upgrade-info">
+				<strong>Click Upgrade</strong>
+				<p>Increase click power</p>
+			</div>
+
+			<button id="clickUpgradeBtn">10</button>
+		</div>
+
+		<div class="upgrade">
+			<div class="upgrade-info">
+				<strong>Auto Clicker</strong>
+				<p>Earn points automatically</p>
+			</div>
+
+			<button id="autoUpgradeBtn">25</button>
+		</div>
+
+		<div class="upgrade">
+			<div class="upgrade-info">
+				<strong>Multiplier</strong>
+				<p>Double all click power</p>
+			</div>
+
+			<button id="multiUpgradeBtn">100</button>
+		</div>
+
+	</div>
+
+	<button id="prestigeBtn">PRESTIGE</button>
+
 </div>
 
 <script>
-	let points = 0;
-	let clickPower = 1;
-	let autoPower = 0;
+const pointsText = document.getElementById("points")
+const clickPowerText = document.getElementById("clickPowerText")
+const autoPowerText = document.getElementById("autoPowerText")
 
-	function clickButton() {
-		points += clickPower;
-		updateUI();
+const clickBtn = document.getElementById("clickBtn")
+
+const clickUpgradeBtn = document.getElementById("clickUpgradeBtn")
+const autoUpgradeBtn = document.getElementById("autoUpgradeBtn")
+const multiUpgradeBtn = document.getElementById("multiUpgradeBtn")
+
+let points = 0
+let clickPower = 1
+let autoPower = 0
+let prestige = 0
+
+let clickCost = 10
+let autoCost = 25
+let multiCost = 100
+
+function format(num){
+	return Math.floor(num).toLocaleString()
+}
+
+function updateUI(){
+	pointsText.innerText = format(points)
+
+	clickPowerText.innerText = format(clickPower)
+	autoPowerText.innerText = format(autoPower)
+
+	clickUpgradeBtn.innerText = format(clickCost)
+	autoUpgradeBtn.innerText = format(autoCost)
+	multiUpgradeBtn.innerText = format(multiCost)
+
+	clickUpgradeBtn.disabled = points < clickCost
+	autoUpgradeBtn.disabled = points < autoCost
+	multiUpgradeBtn.disabled = points < multiCost
+}
+
+function floatingText(x,y,text){
+	const div = document.createElement("div")
+
+	div.className = "floating"
+	div.innerText = text
+
+	div.style.left = x + "px"
+	div.style.top = y + "px"
+
+	document.body.appendChild(div)
+
+	setTimeout(()=>{
+		div.remove()
+	},1000)
+}
+
+clickBtn.addEventListener("click",(e)=>{
+	const gain = clickPower + prestige
+
+	points += gain
+
+	floatingText(
+		e.clientX,
+		e.clientY,
+		"+" + gain
+	)
+
+	updateUI()
+})
+
+clickUpgradeBtn.addEventListener("click",()=>{
+	if(points >= clickCost){
+
+		points -= clickCost
+
+		clickPower += 1
+
+		clickCost = Math.floor(clickCost * 1.5)
+
+		updateUI()
 	}
+})
 
-	function buyClick() {
-		if (points >= 10) {
-			points -= 10;
-			clickPower++;
-			updateUI();
-		}
+autoUpgradeBtn.addEventListener("click",()=>{
+	if(points >= autoCost){
+
+		points -= autoCost
+
+		autoPower += 1
+
+		autoCost = Math.floor(autoCost * 1.6)
+
+		updateUI()
 	}
+})
 
-	function buyAuto() {
-		if (points >= 25) {
-			points -= 25;
-			autoPower++;
-			updateUI();
-		}
+multiUpgradeBtn.addEventListener("click",()=>{
+	if(points >= multiCost){
+
+		points -= multiCost
+
+		clickPower *= 2
+
+		multiCost = Math.floor(multiCost * 2.2)
+
+		updateUI()
 	}
+})
 
-	function updateUI() {
-		document.getElementById("points").innerText = points;
+document.getElementById("prestigeBtn").addEventListener("click",()=>{
+
+	if(points >= 10000){
+
+		prestige += 1
+
+		points = 0
+		clickPower = 1
+		autoPower = 0
+
+		clickCost = 10
+		autoCost = 25
+		multiCost = 100
+
+		updateUI()
 	}
+})
 
-	// Auto click loop
-	setInterval(() => {
-		points += autoPower;
-		updateUI();
-	}, 1000);
+setInterval(()=>{
+
+	points += autoPower + prestige
+
+	updateUI()
+
+},1000)
+
+updateUI()
 </script>
 
 </body>
