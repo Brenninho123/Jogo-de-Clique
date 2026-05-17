@@ -3,398 +3,504 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultimate Clicker</title>
+<title>Infinity Clicker</title>
 
 <style>
-*{
-	margin:0;
-	padding:0;
-	box-sizing:border-box;
-	font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    user-select: none;
 }
 
-body{
-	height:100vh;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	background:
-	radial-gradient(circle at top,#242424,#0d0d0d 70%);
-	color:white;
-	overflow:hidden;
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(ellipse at 30% 40%, #1a2a2a, #0a0f0f);
+    padding: 20px;
 }
 
-#game{
-	width:380px;
-	background:rgba(20,20,20,0.95);
-	border:2px solid rgba(255,255,255,0.05);
-	border-radius:20px;
-	padding:25px;
-	box-shadow:
-	0 0 25px rgba(0,0,0,0.6),
-	0 0 60px rgba(0,255,150,0.08);
-	text-align:center;
-	backdrop-filter:blur(10px);
+#game {
+    width: 420px;
+    background: rgba(12, 18, 18, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 48px;
+    border: 1px solid rgba(0, 255, 170, 0.25);
+    padding: 28px 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 255, 170, 0.1), 0 0 32px rgba(0, 200, 150, 0.2);
+    transition: all 0.2s;
 }
 
-h1{
-	font-size:32px;
-	margin-bottom:15px;
-	color:#00ff99;
-	text-shadow:0 0 12px rgba(0,255,153,0.5);
+h1 {
+    font-size: 28px;
+    text-align: center;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #aaffdd, #22ffaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 12px rgba(34, 255, 170, 0.4);
+    margin-bottom: 12px;
 }
 
-#points{
-	font-size:42px;
-	font-weight:bold;
-	margin-top:5px;
-	color:#ffffff;
+#points {
+    font-size: 56px;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(135deg, #fff, #aaffdd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 10px 0 6px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0, 255, 200, 0.3);
 }
 
-.stats{
-	display:flex;
-	justify-content:space-between;
-	margin-top:18px;
-	background:#111;
-	padding:12px;
-	border-radius:12px;
-	font-size:14px;
+.stats {
+    display: flex;
+    gap: 18px;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 60px;
+    padding: 14px 20px;
+    margin: 20px 0;
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
-.stat{
-	width:50%;
+.stat {
+    flex: 1;
+    text-align: center;
 }
 
-.label{
-	color:#888;
-	font-size:12px;
+.label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8aa;
+    font-weight: 500;
 }
 
-.value{
-	font-size:18px;
-	margin-top:4px;
-	color:#00ff99;
+.value {
+    font-size: 26px;
+    font-weight: bold;
+    color: #7effcf;
+    text-shadow: 0 0 6px #00cc99;
+    margin-top: 4px;
 }
 
-#clickBtn{
-	width:100%;
-	margin-top:22px;
-	padding:20px;
-	font-size:24px;
-	font-weight:bold;
-	border:none;
-	border-radius:16px;
-	cursor:pointer;
-	background:linear-gradient(135deg,#00ff99,#00c3ff);
-	color:black;
-	transition:0.12s;
-	box-shadow:0 0 20px rgba(0,255,153,0.25);
+#clickBtn {
+    width: 100%;
+    padding: 24px;
+    font-size: 28px;
+    font-weight: 800;
+    border: none;
+    border-radius: 120px;
+    background: radial-gradient(circle at 30% 20%, #00e6b8, #008866);
+    color: #001f1a;
+    cursor: pointer;
+    transition: 0.07s linear;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-#clickBtn:hover{
-	transform:translateY(-2px);
-	box-shadow:0 0 30px rgba(0,255,153,0.45);
+#clickBtn:active {
+    transform: scale(0.96);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.5);
 }
 
-#clickBtn:active{
-	transform:scale(0.95);
+.shop {
+    margin: 28px 0 18px;
 }
 
-.shop{
-	margin-top:24px;
-	text-align:left;
+.shop h2 {
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    color: #ccffee;
+    border-left: 3px solid #2effb0;
+    padding-left: 12px;
 }
 
-.shop h2{
-	font-size:20px;
-	margin-bottom:12px;
-	color:#fff;
+.upgrade {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 60px;
+    padding: 12px 20px;
+    margin-bottom: 12px;
+    backdrop-filter: blur(4px);
+    transition: 0.1s;
+    border: 1px solid rgba(46, 255, 176, 0.2);
 }
 
-.upgrade{
-	display:flex;
-	justify-content:space-between;
-	align-items:center;
-	background:#151515;
-	border:1px solid rgba(255,255,255,0.05);
-	padding:14px;
-	border-radius:14px;
-	margin-bottom:12px;
-	transition:0.15s;
+.upgrade:hover {
+    background: rgba(20, 40, 35, 0.8);
+    border-color: rgba(46, 255, 176, 0.6);
 }
 
-.upgrade:hover{
-	transform:translateY(-2px);
-	background:#1c1c1c;
+.upgrade-info strong {
+    font-size: 17px;
+    display: block;
+    color: #ccffdd;
 }
 
-.upgrade-info strong{
-	font-size:16px;
+.upgrade-info p {
+    font-size: 11px;
+    color: #7e9e92;
+    margin-top: 4px;
 }
 
-.upgrade-info p{
-	font-size:12px;
-	color:#999;
-	margin-top:4px;
+.upgrade button {
+    background: linear-gradient(135deg, #2effb0, #00997a);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    color: #001a12;
+    transition: 0.08s linear;
+    min-width: 80px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-.upgrade button{
-	border:none;
-	padding:10px 16px;
-	border-radius:10px;
-	font-weight:bold;
-	cursor:pointer;
-	background:#00c3ff;
-	color:black;
-	transition:0.12s;
-	min-width:80px;
+.upgrade button:active {
+    transform: scale(0.94);
 }
 
-.upgrade button:hover{
-	transform:scale(1.05);
+.upgrade button:disabled {
+    background: #2c3a36;
+    color: #6e8b80;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
-.upgrade button:disabled{
-	background:#333;
-	color:#777;
-	cursor:not-allowed;
-	transform:none;
+#prestigeBtn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 60px;
+    background: radial-gradient(circle at 70% 20%, #ffbb44, #cc6611);
+    font-weight: 800;
+    font-size: 20px;
+    color: #331c00;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.3);
 }
 
-#prestigeBtn{
-	width:100%;
-	margin-top:10px;
-	padding:14px;
-	border:none;
-	border-radius:14px;
-	font-size:18px;
-	font-weight:bold;
-	cursor:pointer;
-	background:linear-gradient(135deg,#ffcc00,#ff6600);
-	color:black;
-	transition:0.15s;
+#prestigeBtn:active {
+    transform: scale(0.97);
 }
 
-#prestigeBtn:hover{
-	transform:translateY(-2px);
+.floating {
+    position: fixed;
+    font-weight: 800;
+    font-size: 22px;
+    color: #bbffdd;
+    pointer-events: none;
+    animation: floatRise 0.9s ease-out forwards;
+    text-shadow: 0 0 12px #00eeaa;
+    z-index: 1000;
 }
 
-.floating{
-	position:absolute;
-	font-weight:bold;
-	color:#00ff99;
-	pointer-events:none;
-	animation:floatUp 1s linear forwards;
-	text-shadow:0 0 10px rgba(0,255,153,0.7);
+@keyframes floatRise {
+    0% {
+        opacity: 1;
+        transform: translateY(0px) scale(0.8);
+    }
+    40% {
+        opacity: 1;
+        transform: translateY(-35px) scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1.3);
+    }
 }
 
-@keyframes floatUp{
-	0%{
-		opacity:1;
-		transform:translateY(0) scale(1);
-	}
-	100%{
-		opacity:0;
-		transform:translateY(-70px) scale(1.5);
-	}
+#prestigeStatus {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 14px;
+    background: rgba(0,0,0,0.4);
+    padding: 6px;
+    border-radius: 60px;
+    letter-spacing: 1px;
+    color: #ffcc88;
+}
+
+.extra {
+    font-size: 12px;
+    margin-top: 8px;
+    color: #9bc0b0;
+    text-align: center;
 }
 </style>
 </head>
 <body>
 
 <div id="game">
+    <h1>✦ INFINITY CLICKER ✦</h1>
+    <div id="points">0</div>
+    <div class="stats">
+        <div class="stat">
+            <div class="label">⚡ CLICK POWER</div>
+            <div class="value" id="clickPowerText">1</div>
+        </div>
+        <div class="stat">
+            <div class="label">🤖 AUTO/SEC</div>
+            <div class="value" id="autoPowerText">0</div>
+        </div>
+    </div>
 
-	<h1>Ultimate Clicker</h1>
+    <button id="clickBtn">TAP ⚡</button>
 
-	<div id="points">0</div>
+    <div class="shop">
+        <h2>⬆ UPGRADES</h2>
+        <div class="upgrade">
+            <div class="upgrade-info">
+                <strong>🔨 Power Fist</strong>
+                <p>+1 click damage</p>
+            </div>
+            <button id="clickUpgradeBtn">10</button>
+        </div>
 
-	<div class="stats">
-		<div class="stat">
-			<div class="label">Click Power</div>
-			<div class="value" id="clickPowerText">1</div>
-		</div>
+        <div class="upgrade">
+            <div class="upgrade-info">
+                <strong>⌛ Drone Swarm</strong>
+                <p>+1 auto per second</p>
+            </div>
+            <button id="autoUpgradeBtn">25</button>
+        </div>
 
-		<div class="stat">
-			<div class="label">Auto / Sec</div>
-			<div class="value" id="autoPowerText">0</div>
-		</div>
-	</div>
+        <div class="upgrade">
+            <div class="upgrade-info">
+                <strong>🌀 Echo Multiplier</strong>
+                <p>double click power</p>
+            </div>
+            <button id="multiUpgradeBtn">100</button>
+        </div>
+    </div>
 
-	<button id="clickBtn">CLICK</button>
-
-	<div class="shop">
-
-		<h2>Shop</h2>
-
-		<div class="upgrade">
-			<div class="upgrade-info">
-				<strong>Click Upgrade</strong>
-				<p>Increase click power</p>
-			</div>
-
-			<button id="clickUpgradeBtn">10</button>
-		</div>
-
-		<div class="upgrade">
-			<div class="upgrade-info">
-				<strong>Auto Clicker</strong>
-				<p>Earn points automatically</p>
-			</div>
-
-			<button id="autoUpgradeBtn">25</button>
-		</div>
-
-		<div class="upgrade">
-			<div class="upgrade-info">
-				<strong>Multiplier</strong>
-				<p>Double all click power</p>
-			</div>
-
-			<button id="multiUpgradeBtn">100</button>
-		</div>
-
-	</div>
-
-	<button id="prestigeBtn">PRESTIGE</button>
-
+    <button id="prestigeBtn">🌟 PRESTIGE 🌟</button>
+    <div id="prestigeStatus">✨ PRESTIGE BONUS: +0 per click/auto</div>
+    <div class="extra">prestige requires 10,000 total points</div>
 </div>
 
 <script>
-const pointsText = document.getElementById("points")
-const clickPowerText = document.getElementById("clickPowerText")
-const autoPowerText = document.getElementById("autoPowerText")
+    const pointsEl = document.getElementById("points");
+    const clickPowerEl = document.getElementById("clickPowerText");
+    const autoPowerEl = document.getElementById("autoPowerText");
+    const clickBtn = document.getElementById("clickBtn");
+    const clickUpgradeBtn = document.getElementById("clickUpgradeBtn");
+    const autoUpgradeBtn = document.getElementById("autoUpgradeBtn");
+    const multiUpgradeBtn = document.getElementById("multiUpgradeBtn");
+    const prestigeBtn = document.getElementById("prestigeBtn");
+    const prestigeStatus = document.getElementById("prestigeStatus");
 
-const clickBtn = document.getElementById("clickBtn")
+    let points = 0;
+    let clickPower = 1;
+    let autoPower = 0;
+    let prestigeLevel = 0;
+    let prestigeBonus = 0;
 
-const clickUpgradeBtn = document.getElementById("clickUpgradeBtn")
-const autoUpgradeBtn = document.getElementById("autoUpgradeBtn")
-const multiUpgradeBtn = document.getElementById("multiUpgradeBtn")
+    let clickCost = 10;
+    let autoCost = 25;
+    let multiCost = 100;
 
-let points = 0
-let clickPower = 1
-let autoPower = 0
-let prestige = 0
+    function formatNumber(num) {
+        if (num >= 1e12) return (num / 1e12).toFixed(2) + "T";
+        if (num >= 1e9) return (num / 1e9).toFixed(2) + "B";
+        if (num >= 1e6) return (num / 1e6).toFixed(2) + "M";
+        if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
+        return Math.floor(num).toString();
+    }
 
-let clickCost = 10
-let autoCost = 25
-let multiCost = 100
+    function getTotalClickGain() {
+        return clickPower + prestigeBonus;
+    }
 
-function format(num){
-	return Math.floor(num).toLocaleString()
-}
+    function getTotalAutoGain() {
+        return autoPower + prestigeBonus;
+    }
 
-function updateUI(){
-	pointsText.innerText = format(points)
+    function updateUI() {
+        pointsEl.innerText = formatNumber(points);
+        clickPowerEl.innerText = formatNumber(getTotalClickGain());
+        autoPowerEl.innerText = formatNumber(getTotalAutoGain());
 
-	clickPowerText.innerText = format(clickPower)
-	autoPowerText.innerText = format(autoPower)
+        clickUpgradeBtn.innerText = formatNumber(clickCost);
+        autoUpgradeBtn.innerText = formatNumber(autoCost);
+        multiUpgradeBtn.innerText = formatNumber(multiCost);
 
-	clickUpgradeBtn.innerText = format(clickCost)
-	autoUpgradeBtn.innerText = format(autoCost)
-	multiUpgradeBtn.innerText = format(multiCost)
+        clickUpgradeBtn.disabled = points < clickCost;
+        autoUpgradeBtn.disabled = points < autoCost;
+        multiUpgradeBtn.disabled = points < multiCost;
 
-	clickUpgradeBtn.disabled = points < clickCost
-	autoUpgradeBtn.disabled = points < autoCost
-	multiUpgradeBtn.disabled = points < multiCost
-}
+        if (prestigeBonus > 0) {
+            prestigeStatus.innerHTML = `🌟 PRESTIGE LVL ${prestigeLevel} | +${formatNumber(prestigeBonus)} per action 🌟`;
+        } else {
+            prestigeStatus.innerHTML = `✨ PRESTIGE BONUS: +0 per click/auto ✨`;
+        }
+    }
 
-function floatingText(x,y,text){
-	const div = document.createElement("div")
+    function createFloatEffect(x, y, value) {
+        const floatDiv = document.createElement("div");
+        floatDiv.className = "floating";
+        let displayVal = formatNumber(value);
+        floatDiv.innerText = `+${displayVal}`;
+        floatDiv.style.left = (x - 25) + "px";
+        floatDiv.style.top = (y - 30) + "px";
+        document.body.appendChild(floatDiv);
+        setTimeout(() => {
+            if (floatDiv && floatDiv.remove) floatDiv.remove();
+        }, 900);
+    }
 
-	div.className = "floating"
-	div.innerText = text
+    clickBtn.addEventListener("click", (event) => {
+        const gain = getTotalClickGain();
+        if (gain <= 0 && prestigeBonus === 0 && clickPower === 0) return;
+        points += gain;
+        const rect = clickBtn.getBoundingClientRect();
+        const clientX = event.clientX !== undefined ? event.clientX : rect.left + rect.width / 2;
+        const clientY = event.clientY !== undefined ? event.clientY : rect.top + rect.height / 2;
+        createFloatEffect(clientX, clientY, gain);
+        updateUI();
+    });
 
-	div.style.left = x + "px"
-	div.style.top = y + "px"
+    clickUpgradeBtn.addEventListener("click", () => {
+        if (points >= clickCost) {
+            points -= clickCost;
+            clickPower += 1;
+            clickCost = Math.floor(clickCost * 1.5);
+            if (clickCost < 10) clickCost = 10;
+            updateUI();
+        }
+    });
 
-	document.body.appendChild(div)
+    autoUpgradeBtn.addEventListener("click", () => {
+        if (points >= autoCost) {
+            points -= autoCost;
+            autoPower += 1;
+            autoCost = Math.floor(autoCost * 1.6);
+            if (autoCost < 25) autoCost = 25;
+            updateUI();
+        }
+    });
 
-	setTimeout(()=>{
-		div.remove()
-	},1000)
-}
+    multiUpgradeBtn.addEventListener("click", () => {
+        if (points >= multiCost) {
+            points -= multiCost;
+            clickPower *= 2;
+            multiCost = Math.floor(multiCost * 2.2);
+            if (multiCost < 100) multiCost = 100;
+            updateUI();
+        }
+    });
 
-clickBtn.addEventListener("click",(e)=>{
-	const gain = clickPower + prestige
+    function applyPrestige() {
+        if (points >= 10000) {
+            prestigeLevel++;
+            prestigeBonus = Math.floor(5 + prestigeLevel * 1.8);
+            points = 0;
+            clickPower = 1;
+            autoPower = 0;
+            clickCost = 10;
+            autoCost = 25;
+            multiCost = 100;
+            updateUI();
 
-	points += gain
+            const prestigeMsg = document.createElement("div");
+            prestigeMsg.innerText = `✦ PRESTIGE ${prestigeLevel} ! +${prestigeBonus} permanent bonus ✦`;
+            prestigeMsg.style.position = "fixed";
+            prestigeMsg.style.bottom = "20px";
+            prestigeMsg.style.left = "50%";
+            prestigeMsg.style.transform = "translateX(-50%)";
+            prestigeMsg.style.background = "#ffaa33cc";
+            prestigeMsg.style.color = "#1f2a1f";
+            prestigeMsg.style.padding = "8px 20px";
+            prestigeMsg.style.borderRadius = "40px";
+            prestigeMsg.style.fontWeight = "bold";
+            prestigeMsg.style.zIndex = "2000";
+            prestigeMsg.style.backdropFilter = "blur(12px)";
+            prestigeMsg.style.fontSize = "14px";
+            document.body.appendChild(prestigeMsg);
+            setTimeout(() => {
+                if (prestigeMsg && prestigeMsg.remove) prestigeMsg.remove();
+            }, 2000);
+        } else {
+            const warnMsg = document.createElement("div");
+            warnMsg.innerText = `❗ Need 10,000 points to prestige (${formatNumber(points)} / 10K) ❗`;
+            warnMsg.style.position = "fixed";
+            warnMsg.style.bottom = "80px";
+            warnMsg.style.left = "50%";
+            warnMsg.style.transform = "translateX(-50%)";
+            warnMsg.style.background = "#aa4444dd";
+            warnMsg.style.color = "white";
+            warnMsg.style.padding = "6px 18px";
+            warnMsg.style.borderRadius = "30px";
+            warnMsg.style.fontSize = "13px";
+            warnMsg.style.zIndex = "2000";
+            document.body.appendChild(warnMsg);
+            setTimeout(() => {
+                if (warnMsg && warnMsg.remove) warnMsg.remove();
+            }, 1500);
+        }
+    }
 
-	floatingText(
-		e.clientX,
-		e.clientY,
-		"+" + gain
-	)
+    prestigeBtn.addEventListener("click", applyPrestige);
 
-	updateUI()
-})
+    let lastAutoSum = 0;
+    setInterval(() => {
+        const autoGain = getTotalAutoGain();
+        if (autoGain > 0) {
+            points += autoGain;
+            updateUI();
+            const gameRect = document.getElementById("game").getBoundingClientRect();
+            const randX = gameRect.left + gameRect.width - 40;
+            const randY = gameRect.top + 30;
+            const fakeEvent = { clientX: randX, clientY: randY };
+            if (autoGain > 0 && autoGain < 5000) {
+                createFloatEffect(randX, randY, autoGain);
+            } else if (autoGain >= 5000) {
+                const bigDiv = document.createElement("div");
+                bigDiv.className = "floating";
+                bigDiv.innerText = `⚡ +${formatNumber(autoGain)} AUTO ⚡`;
+                bigDiv.style.left = (randX - 40) + "px";
+                bigDiv.style.top = (randY - 20) + "px";
+                bigDiv.style.fontSize = "26px";
+                bigDiv.style.color = "#ffffaa";
+                document.body.appendChild(bigDiv);
+                setTimeout(() => { if(bigDiv.remove) bigDiv.remove(); }, 900);
+            }
+        }
+        lastAutoSum = autoGain;
+    }, 1000);
 
-clickUpgradeBtn.addEventListener("click",()=>{
-	if(points >= clickCost){
+    updateUI();
 
-		points -= clickCost
-
-		clickPower += 1
-
-		clickCost = Math.floor(clickCost * 1.5)
-
-		updateUI()
-	}
-})
-
-autoUpgradeBtn.addEventListener("click",()=>{
-	if(points >= autoCost){
-
-		points -= autoCost
-
-		autoPower += 1
-
-		autoCost = Math.floor(autoCost * 1.6)
-
-		updateUI()
-	}
-})
-
-multiUpgradeBtn.addEventListener("click",()=>{
-	if(points >= multiCost){
-
-		points -= multiCost
-
-		clickPower *= 2
-
-		multiCost = Math.floor(multiCost * 2.2)
-
-		updateUI()
-	}
-})
-
-document.getElementById("prestigeBtn").addEventListener("click",()=>{
-
-	if(points >= 10000){
-
-		prestige += 1
-
-		points = 0
-		clickPower = 1
-		autoPower = 0
-
-		clickCost = 10
-		autoCost = 25
-		multiCost = 100
-
-		updateUI()
-	}
-})
-
-setInterval(()=>{
-
-	points += autoPower + prestige
-
-	updateUI()
-
-},1000)
-
-updateUI()
+    let animationFrame = null;
+    let lastTimestamp = 0;
+    let pulseActive = false;
+    function addPulseGlow() {
+        const btn = clickBtn;
+        btn.style.transition = "0.05s linear";
+        btn.style.transform = "scale(0.98)";
+        setTimeout(() => {
+            btn.style.transform = "";
+        }, 70);
+    }
+    clickBtn.addEventListener("mousedown", addPulseGlow);
+    clickBtn.addEventListener("touchstart", addPulseGlow);
 </script>
-
 </body>
 </html>
